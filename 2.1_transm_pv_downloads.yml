@@ -1,0 +1,18 @@
+# Transmission PV: downloads-pv
+
+apiVersion: v1
+kind: PersistentVolume
+
+metadata:
+  name: downloads-pv
+  labels:
+    type: local
+              
+spec:
+  storageClassName: transm-storage-class
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/home/k8sadmin/downloads"

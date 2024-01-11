@@ -1,0 +1,89 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: transmission-deployment
+    namespace: transmission
+    labels:
+        app: transmission
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: transmission
+    template:
+        metadata:
+            name: transmission-pod
+            namespace: transmission
+            labels:
+                app: transmission
+        spec:
+            containers:
+            - name: transmission-container
+              image: lscr.io/linuxserver/transmission:latest
+              ports:
+              - containerPort: 9091
+                protocol: TCP
+              - containerPort: 51413
+                protocol: TCP
+              - containerPort: 51413
+                protocol: UDP
+
+              volumeMounts:
+              - mountPath: /downloads
+                name: downloads-volume
+              - mountPath: /config
+                name: config-volume
+              - mountPath: /watch
+                name: watch-volume
+
+              env:
+              - name: PUID
+                value: "1000"
+              - name: PGID
+                value: "1000"
+              - name: TZ
+                value: "Europe/Bucharest"
+              - name: USER
+                value: "admin"
+              - name: PASS
+                valueFrom:
+                    secretKeyRef:
+                        name: transmission-secrets
+                        key: transmission-password
+
+            volumes:
+            - name: downloads-volume
+              persistentVolumeClaim:
+                claimName: downloads-pvc
+
+            - name: config-volume
+              persistentVolumeClaim:
+                claimName: config-pvc
+                
+            - name: watch-volume
+              persistentVolumeClaim:
+                claimName: watch-pvc
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+    name: transmission-service
+    namespace: transmission
+spec:
+    type: NodePort
+    selector:
+        app: transmission
+    ports:
+    - protocol: TCP
+      name: web-interface
+      port: 9091
+      nodePort: 30002
+    - protocol: TCP
+      name: torrent-tcp
+      port: 51413
+      nodePort: 30003
+    - protocol: UDP
+      name: torrents-udp
+      port: 51413
+      nodePort: 30004

@@ -1,0 +1,15 @@
+# Transmission PVC: config-pvc
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+
+metadata:
+  name: config-pvc
+
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: transm-storage-class
+  resources:
+    requests:
+      storage: 5Gi
