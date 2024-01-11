@@ -2,7 +2,7 @@ Follow the below steps to deploy Transmission App in Kubernetes using YAML files
 
 PREREQUISITES:
 
-    l. Copy all of the YAML files on a local directory
+    l. Copy all of the above YAML files on a local directory
     2. Open communication on ports 30002, 30003, 30004 on the Router (or other ports, but they need to be modified in transm_deployment.yml).
 
 DEPLOYMENT STEPS:
