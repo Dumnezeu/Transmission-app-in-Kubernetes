@@ -1,5 +1,7 @@
 Follow the below steps to deploy Transmission App in Kubernetes using YAML files.
 
+First copy all of the YAML files on a local directory.
+
 DEPLOYMENT STEPS:
 
     l. Create namespace
