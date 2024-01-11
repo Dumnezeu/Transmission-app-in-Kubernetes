@@ -15,4 +15,4 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/home/k8sadmin/downloads"
+    path: "/home/k8sadmin/transm_volume_files/downloads"
