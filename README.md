@@ -6,12 +6,12 @@ DEPLOYMENT STEPS:
         - kubectl create ns transmission
 
     2. Create the Storage Class
-    	- kubectl apply -f transm_storageclass.yml -n transmission
+        - kubectl apply -f transm_storageclass.yml -n transmission
      
     3. Create directories in the OS for the persistent volume
-      - mkdir /config
-      - mkdir /downloads
-    	- mkdir /watch
+        - mkdir /config
+        - mkdir /downloads
+        - mkdir /watch
      
     4. Create the Persistent Volumes
         - kubectl create -f transm_pv_config.yml -n transmission
